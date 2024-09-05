@@ -1,8 +1,9 @@
 defmodule Rager.Search.Provider do
-  @callback search(query :: String.t(), options :: options()) ::
-              {:ok, map()} | {:error, String.t()}
+  alias Rager.Search.Result
 
-  @type options() :: [
+  @callback search(query :: String.t(), opts :: opts()) ::
+              {:ok, [Result.t()]} | {:error, String.t()}
+  @type opts() :: [
           {:engine, :exa},
           {:api_key, String.t()},
           {:num_results, integer()},

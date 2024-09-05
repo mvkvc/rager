@@ -2,8 +2,7 @@ defmodule Rager.MixProject do
   use Mix.Project
 
   @name "Rager"
-  @description "Simple tools for building LLM applications.
-"
+  @description "Tools for building with LLMs."
   @source_url "https://github.com/mvkvc/rager"
   @version "0.1.0"
 
@@ -16,10 +15,10 @@ defmodule Rager.MixProject do
       version: @version,
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      aliases: aliases(),
+      dialyzer: dialyzer(),
       docs: docs(),
-      dialyzer: dialyzer()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -29,13 +28,10 @@ defmodule Rager.MixProject do
     ]
   end
 
-  defp deps do
+  defp dialyzer do
     [
-      {:req, "~> 0.5.0"},
-      #
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      plt_core_path: "plts",
+      plt_file: {:no_warn, "plts/dialyzer.plt"}
     ]
   end
 
@@ -48,15 +44,20 @@ defmodule Rager.MixProject do
     ]
   end
 
-  defp dialyzer do
+  defp deps do
     [
-      plt_core_path: "plts",
-      plt_file: {:no_warn, "plts/dialyzer.plt"}
+      {:req, "~> 0.5.0"},
+      {:ecto, "~> 3.12"},
+      #
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 
   defp aliases do
     [
+      doc: ["docs --formatter html"],
       lint: [
         "format --check-formatted --no-exit",
         "credo",

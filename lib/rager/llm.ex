@@ -1,4 +1,6 @@
 defmodule Rager.LLM do
+  defstruct [:base_url, :key, :stream]
+
   defp add_context(prompt, []), do: prompt
 
   defp add_context(prompt, context) do
